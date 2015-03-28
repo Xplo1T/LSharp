@@ -1,1 +1,16 @@
 C:\Users\Shyn\Documents\GitHub\LSharp\ezEvade\bin\Release\ezEvade.exe.config
+E:\GitHub\LSharp\ezEvade\bin\Release\ezEvade.exe.config
+E:\GitHub\LSharp\ezEvade\bin\Release\ezEvade.exe.manifest
+E:\GitHub\LSharp\ezEvade\bin\Release\ezEvade.application
+E:\GitHub\LSharp\ezEvade\bin\Release\ezEvade.exe
+E:\GitHub\LSharp\ezEvade\bin\Release\ezEvade.pdb
+E:\GitHub\LSharp\ezEvade\bin\Release\LeagueSharp.Common.dll
+E:\GitHub\LSharp\ezEvade\bin\Release\LeagueSharp.dll
+E:\GitHub\LSharp\ezEvade\bin\Release\SharpDX.dll
+E:\GitHub\LSharp\ezEvade\bin\Release\SharpDX.Direct3D9.dll
+E:\GitHub\LSharp\ezEvade\bin\Release\clipper_library.dll
+E:\GitHub\LSharp\ezEvade\bin\Release\LeagueSharp.xml
+E:\GitHub\LSharp\ezEvade\obj\Debug\ezEvade.exe.manifest
+E:\GitHub\LSharp\ezEvade\obj\Debug\ezEvade.application
+E:\GitHub\LSharp\ezEvade\obj\Debug\ezEvade.exe
+E:\GitHub\LSharp\ezEvade\obj\Debug\ezEvade.pdb
