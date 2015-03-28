@@ -32,7 +32,7 @@ namespace Lux
                 return;
             }
 
-            Game.OnGameUpdate += Game_OnGameUpdate;
+            Game.OnUpdate += Game_OnUpdate;
 
             //Skills:
             Q = new Spell(SpellSlot.Q, 1175);
@@ -63,7 +63,7 @@ namespace Lux
         } //endOf: Game_OnGameLoad()
 
         //Gameupdate
-        private static void Game_OnGameUpdate(EventArgs args)
+        private static void Game_OnUpdate(EventArgs args)
         {
 
             Target = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical);
