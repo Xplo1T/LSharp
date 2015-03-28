@@ -87,7 +87,7 @@ namespace Lux
                 if (Target != null && R.IsReady())
                 {
                     if (R.GetPrediction(Target).Hitchance >= HitChance.High)
-                        CastSpell(R, Target, 2);
+                        CastSpell(R, Target, 3);
                 }
             }
 
