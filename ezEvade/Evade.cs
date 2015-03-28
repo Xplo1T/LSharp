@@ -41,8 +41,8 @@ namespace ezEvade
             CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
             Obj_AI_Hero.OnIssueOrder += Game_OnIssueOrder;
             Spellbook.OnCastSpell += Game_OnCastSpell;
-            Game.OnGameUpdate += Game_OnGameUpdate;
-            Game.OnGameSendPacket += Game_OnSendPacket;
+            Game.OnUpdate += Game_OnGameUpdate;
+            Game.OnSendPacket += Game_OnSendPacket;
 
             SpellDetector.OnCreateSpell += SpellDetector_OnCreateSpell;
         }
