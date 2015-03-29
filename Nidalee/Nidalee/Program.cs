@@ -64,11 +64,12 @@ namespace Nidalee
         //Credits to Sebby (OKTW) <3
         static void CastQ(Spell q, Obj_AI_Hero target)
         {
-
+            /*
             if (q.Delay < 0.25)
             {
                 Q.CastIfHitchanceEquals(target, HitChance.Immobile, true);
             }
+             */
 
             List<Vector2> waypoint = target.GetWaypoints();
             //SitetoSite
