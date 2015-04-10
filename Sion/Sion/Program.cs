@@ -113,7 +113,7 @@ namespace Sion
 
 
         //THANKS SEBBY (ONEKEYTOWIN).
-        private static void CastSpell(Spell Q, Obj_AI_Hero target)
+        private static void CastSpell(Spell q, Obj_AI_Hero target)
         {
             /*
             if (q.Delay < 0.25)
@@ -124,9 +124,9 @@ namespace Sion
 
             List<Vector2> waypoint = target.GetWaypoints();
             //SitetoSite
-            float StS = ((target.MoveSpeed * Q.Delay) + (Player.Distance(target.ServerPosition) / Q.Speed)) * 6 - Q.Width;
+            float StS = ((target.MoveSpeed * q.Delay) + (Player.Distance(target.ServerPosition) / q.Speed)) * 6 - q.Width;
             //Backtofront
-            float BtF = ((target.MoveSpeed * Q.Delay) + (Player.Distance(target.ServerPosition) / Q.Speed)) * 5;
+            float BtF = ((target.MoveSpeed * q.Delay) + (Player.Distance(target.ServerPosition) / q.Speed)) * 5;
             if (ObjectManager.Player.Distance(waypoint.Last<Vector2>().To3D()) < StS || ObjectManager.Player.Distance(target.Position) < StS)
                 q.CastIfHitchanceEquals(target, HitChance.VeryHigh, true);
             else if (target.Path.Count() < 2
