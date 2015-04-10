@@ -65,7 +65,7 @@ namespace Sion
             menu.AddToMainMenu();
 
             Game.OnUpdate += Game_OnUpdate;
-            Game.PrintChat("Sion 1.0.0.0 Loaded!");
+            Game.PrintChat("Sion 1.0.0.2 Loaded!");
 
 
 
@@ -113,7 +113,7 @@ namespace Sion
 
 
         //THANKS SEBBY (ONEKEYTOWIN).
-        private static void CastSpell(Spell q, Obj_AI_Hero target)
+        private static void CastSpell(Spell Q, Obj_AI_Hero target)
         {
             /*
             if (q.Delay < 0.25)
