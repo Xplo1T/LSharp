@@ -36,7 +36,7 @@ namespace Sion
             Q.SetSkillshot(0.5f, 100f, 1600f, false, SkillshotType.SkillshotLine);
             Q.SetCharged("CrypticGaze","CrypticGaze",550,720,0.5f);
             W = new Spell(SpellSlot.W,0);
-            E = new Spell(SpellSlot.E, 800);
+            E = new Spell(SpellSlot.E, 1800);
             E.SetSkillshot(0.25f, 80f, 1800, false, SkillshotType.SkillshotLine);
             // fix?
             R = new Spell(SpellSlot.R, 800);
@@ -83,7 +83,7 @@ namespace Sion
 
                 if (QTarget != null && menu.Item("Use Q").GetValue<bool>())
                 {
-                    if (Q.IsCharging)
+                    if (Q.ChargeDuration>=1)
                     {
                         CastSpell(Q, QTarget);
                     }
