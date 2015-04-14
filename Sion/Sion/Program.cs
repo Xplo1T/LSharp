@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using SharpDX;
 using LeagueSharp;
 using LeagueSharp.Common;
+using System.Reflection;
 
 namespace Sion
 {
@@ -33,7 +34,7 @@ namespace Sion
 
 
             Q = new Spell(SpellSlot.Q, 550f);
-            Q.SetSkillshot(0.5f, 100f, 1600f, false, SkillshotType.SkillshotLine);
+            Q.SetSkillshot(0.5f, 100f, float.MaxValue, false, SkillshotType.SkillshotLine);
             Q.SetCharged("CrypticGaze","CrypticGaze",550,720,0.5f);
             W = new Spell(SpellSlot.W,0);
             E = new Spell(SpellSlot.E, 1800);
@@ -65,9 +66,7 @@ namespace Sion
             menu.AddToMainMenu();
 
             Game.OnUpdate += Game_OnUpdate;
-            Game.PrintChat("Sion 1.0.0.2 Loaded!");
-
-
+            Game.PrintChat("Sion " +  Assembly.GetExecutingAssembly().GetName().Version + " Loaded!");
 
 
         } //Game_OnGameLoad
@@ -108,46 +107,44 @@ namespace Sion
 
             }
 
+            
+
         }
 
 
 
         //THANKS SEBBY (ONEKEYTOWIN).
-        private static void CastSpell(Spell q, Obj_AI_Hero target)
+        private static void CastSpell(Spell QWER, Obj_AI_Hero target)
         {
-            /*
-            if (q.Delay < 0.25)
-            {
-                Q.CastIfHitchanceEquals(target, HitChance.Immobile, true);
-            }
-             */
+           
+                List<Vector2> waypoints = target.GetWaypoints();
+                //debug("" + target.Path.Count() + " " + (target.Position == target.ServerPosition) + (waypoints.Last<Vector2>().To3D() == target.ServerPosition));
+                if (QWER.Delay < 0.3)
+                    QWER.CastIfHitchanceEquals(target, HitChance.Dashing, true);
+                QWER.CastIfHitchanceEquals(target, HitChance.Immobile, true);
+                QWER.CastIfWillHit(target, 2, true);
 
-            List<Vector2> waypoint = target.GetWaypoints();
-            //SitetoSite
-            float StS = ((target.MoveSpeed * q.Delay) + (Player.Distance(target.ServerPosition) / q.Speed)) * 6 - q.Width;
-            //Backtofront
-            float BtF = ((target.MoveSpeed * q.Delay) + (Player.Distance(target.ServerPosition) / q.Speed)) * 5;
-            if (ObjectManager.Player.Distance(waypoint.Last<Vector2>().To3D()) < StS || ObjectManager.Player.Distance(target.Position) < StS)
-                q.CastIfHitchanceEquals(target, HitChance.VeryHigh, true);
-            else if (target.Path.Count() < 2
-                    && (target.ServerPosition.Distance(waypoint.Last<Vector2>().To3D()) > StS
-                    || (ObjectManager.Player.Distance(waypoint.Last<Vector2>().To3D()) - ObjectManager.Player.Distance(target.Position)) < 0 - BtF
-                    || (ObjectManager.Player.Distance(waypoint.Last<Vector2>().To3D()) - ObjectManager.Player.Distance(target.Position)) > (target.MoveSpeed * q.Delay)
-                    || target.Path.Count() == 0))
-            {
-
-                if (ObjectManager.Player.Distance(waypoint.Last<Vector2>().To3D()) <= ObjectManager.Player.Distance(target.Position))
+                float SiteToSite = ((target.MoveSpeed * QWER.Delay) + (Player.Distance(target.ServerPosition) / QWER.Speed)) * 6 - QWER.Width;
+                float BackToFront = ((target.MoveSpeed * QWER.Delay) + (Player.Distance(target.ServerPosition) / QWER.Speed));
+                if (ObjectManager.Player.Distance(waypoints.Last<Vector2>().To3D()) < SiteToSite || ObjectManager.Player.Distance(target.Position) < SiteToSite)
+                    QWER.CastIfHitchanceEquals(target, HitChance.High, true);
+                else if (target.Path.Count() < 2
+                    && (target.ServerPosition.Distance(waypoints.Last<Vector2>().To3D()) > SiteToSite
+                    || Math.Abs(ObjectManager.Player.Distance(waypoints.Last<Vector2>().To3D()) - ObjectManager.Player.Distance(target.Position)) > BackToFront
+                    || target.HasBuffOfType(BuffType.Slow) || target.HasBuff("Recall")
+                    || (target.Path.Count() == 0 && target.Position == target.ServerPosition)
+                    ))
                 {
-                    if (ObjectManager.Player.Distance(target.ServerPosition) < q.Range - ((target.MoveSpeed * q.Delay) + (Player.Distance(target.ServerPosition) / q.Speed)))
-                        q.CastIfHitchanceEquals(target, HitChance.High, true);
+                    if (target.IsFacing(ObjectManager.Player) || target.Path.Count() == 0)
+                    {
+                        if (ObjectManager.Player.Distance(target.Position) < QWER.Range - ((target.MoveSpeed * QWER.Delay) + (Player.Distance(target.Position) / QWER.Speed)))
+                            QWER.CastIfHitchanceEquals(target, HitChance.High, true);
+                    }
+                    else
+                    {
+                        QWER.CastIfHitchanceEquals(target, HitChance.High, true);
+                    }
                 }
-                else
-                {
-                    q.CastIfHitchanceEquals(target, HitChance.High, true);
-                }
-
-            }
-
         }
 
 
