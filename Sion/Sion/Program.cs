@@ -82,7 +82,7 @@ namespace Sion
 
                 if (QTarget != null && menu.Item("Use Q").GetValue<bool>())
                 {
-                    if (Q.ChargeDuration>=1)
+                    if (Q.ChargeDuration>=1.1)
                     {
                         CastSpell(Q, QTarget);
                     }
