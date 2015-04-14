@@ -87,7 +87,7 @@ namespace Sion
                         CastSpell(Q, QTarget);
                     }
 
-                if (Q.IsReady())
+                if (Q.IsReady() && QTarget != null)
                 {
                 
                     Q.StartCharging(QTarget.ServerPosition);
