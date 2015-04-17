@@ -14,7 +14,6 @@ namespace Sion
     {
         private const string championName = "Sion";
         private static Obj_AI_Hero Player;
-        private static Obj_AI_Hero Target;
         private static Spell Q, W, E, R;
 
         //
@@ -33,9 +32,9 @@ namespace Sion
             }
 
 
-            Q = new Spell(SpellSlot.Q, 550f);
+            Q = new Spell(SpellSlot.Q, 1050);
             Q.SetSkillshot(0.5f, 100f, float.MaxValue, false, SkillshotType.SkillshotLine);
-            Q.SetCharged("CrypticGaze","CrypticGaze",550,720,0.5f);
+            Q.SetCharged("CrypticGaze","CrypticGaze",500,720,0.5f);
             W = new Spell(SpellSlot.W,0);
             E = new Spell(SpellSlot.E, 1800);
             E.SetSkillshot(0.25f, 80f, 1800, false, SkillshotType.SkillshotLine);
@@ -61,7 +60,7 @@ namespace Sion
             menu.SubMenu("Combo")
                 .AddItem(
                     new MenuItem("ComboA", "Combo!").SetValue(
-                        new KeyBind(menu.Item("Orbwalk").GetValue<KeyBind>().Key, KeyBindType.Press)));
+                        new KeyBind(menu.Item("Orbwalking").GetValue<KeyBind>().Key, KeyBindType.Press)));
 
             menu.AddToMainMenu();
 
@@ -76,24 +75,25 @@ namespace Sion
         {
             if (menu.Item("ComboA").GetValue<KeyBind>().Active)
             {
-                Obj_AI_Hero QTarget = TargetSelector.GetTarget(Q.ChargedMaxRange, TargetSelector.DamageType.Physical);
-                Obj_AI_Hero ETarget = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
-                Obj_AI_Hero RTarget = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
+                var QTarget = TargetSelector.GetTarget(!Q.IsCharging ? Q.ChargedMaxRange / 2 : Q.ChargedMaxRange, TargetSelector.DamageType.Physical);
+                var ETarget = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Physical);
+                var RTarget = TargetSelector.GetTarget(R.Range, TargetSelector.DamageType.Physical);
 
                 if (QTarget != null && menu.Item("Use Q").GetValue<bool>())
                 {
-                    if (Q.ChargeDuration>=1.1)
+                    if (Q.ChargeDuration >= 1.5f)
                     {
-                        CastSpell(Q, QTarget);
+                        Q.CastIfHitchanceEquals(QTarget,HitChance.High,true);
                     }
+                }//QEnd.
+                    
 
-                if (Q.IsReady() && QTarget != null)
+              if (Q.IsReady() && QTarget != null && !Q.IsCharging)
                 {
-                
+
                     Q.StartCharging(QTarget.ServerPosition);
                 }
 
-                }//QEnd.
 
             if (ETarget != null && menu.Item("Use E").GetValue<bool>() && E.IsReady())
             {
